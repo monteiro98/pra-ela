@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oi linda</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f3f4f6;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .cake {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        .cake-base {
+            width: 200px;
+            height: 100px;
+            background: #ff7eb3;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .cake-top {
+            width: 180px;
+            height: 60px;
+            background: #ff758f;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 100px;
+            left: 10px;
+        }
+
+        .candle {
+            width: 10px;
+            height: 30px;
+            background: #e00000;
+            position: absolute;
+            bottom: 160px;
+            left: 95px;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            color: #ff7eb3;
+            animation: float 3s infinite;
+            user-select: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-50px);
+            }
+        }
+
+        .balloon {
+            position: absolute;
+            animation: floatBalloon 8s linear infinite;
+        }
+
+        .balloon-body {
+            width: 60px;
+            height: 70px;
+            background: #ff758f;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            transform: rotate(-5deg);
+            box-shadow: inset -10px -10px 12px rgba(0,0,0,0.1);
+        }
+
+        .balloon-body::before {
+            content: '';
+            position: absolute;
+            width: 20%;
+            height: 20%;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            top: 20%;
+            left: 20%;
+        }
+
+        .balloon-string {
+            width: 2px;
+            height: 80px;
+            background: #f00000;
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform-origin: top;
+            animation: swingString 2s ease-in-out infinite;
+        }
+
+        @keyframes floatBalloon {
+            0% { 
+                transform: translateY(100vh) translateX(0);
+            }
+            100% { 
+                transform: translateY(-100vh) translateX(calc(sin(var(--random-offset, 0deg)) * 100px));
+            }
+        }
+
+        @keyframes swingString {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Estilos para os confetes */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff758f;
+            border-radius: 50%;
+            animation: confettiAnimation 2s forwards;
+        }
+
+        @keyframes confettiAnimation {
+            0% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotate(0);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) translateY(150px) rotate(720deg);
+            }
+        }
+
+        .message {
+            text-align: center;
+            font-size: 3em;
+            color: #ff758f;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+                /* Estilos para o "Eu te amo" */
+        .message-love {
+            font-size: 2.5em;
+            color: red;
+            white-space: nowrap; /* Impede quebra de linha */
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .love {
+            margin-right: 10px; /* Espaço entre as frases */
+        }
+    </style>
+</head>
+<body>
+    <div class="message">Feliz Aniversário minha vida!</div>
+    
+    <div class="cake">
+        <div class="candle"></div>
+        <div class="cake-top"></div>
+        <div class="cake-base"></div>
+    </div>
+      <!-- "Eu te amo" -->
+    <div id="messageLove" class="message-love"></div>
+    <script>
+        // Criar corações
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = window.innerHeight + 'px'; // Inicia no fundo da tela
+            document.body.appendChild(heart);
+            
+            // Adiciona a animação de subir
+            heart.style.animation = 'float 3s infinite';
+            
+            // Remove o coração após a animação
+            setTimeout(() => {
+                heart.remove();
+            }, 3000); // Duração da animação
+        }
+
+        // Criar confetes
+        function createConfetti(x, y) {
+            const numConfetti = 50; // Número de confetes
+            for (let i = 0; i < numConfetti; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = x + 'px';
+                confetti.style.top = y + 'px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`; // Cores aleatórias
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 2000); // Tempo para o confete desaparecer
+            }
+        }
+
+        // Criar balões
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * window.innerWidth + 'px';
+            balloon.style.setProperty('--random-offset', Math.random() * 360 + 'deg');
+            
+            const balloonBody = document.createElement('div');
+            balloonBody.className = 'balloon-body';
+            
+            const balloonString = document.createElement('div');
+            balloonString.className = 'balloon-string';
+            
+            balloon.appendChild(balloonBody);
+            balloon.appendChild(balloonString);
+            document.body.appendChild(balloon);
+
+            // Adiciona o evento de clique para estourar o balão e gerar confetes
+            balloon.addEventListener('click', (e) => {
+                createConfetti(e.pageX, e.pageY); // Cria confetes na posição do clique
+                balloonBody.style.background = 'transparent'; // Altera a cor para indicar que estourou
+                balloonString.style.height = '0'; // Remove a corda do balão
+                balloon.style.transform = 'scale(0)'; // Faz o balão desaparecer
+                setTimeout(() => {
+                    balloon.remove(); // Remove o balão da tela
+                }, 500); // Espera o tempo da animação
+            });
+
+            // Configura a remoção automática do balão depois de 8 segundos
+            setTimeout(() => {
+                balloon.remove();
+            }, 8000);
+        }
+          // Criar corações
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Gerar "Eu te amo" 25 vezes com intervalos
+        const messageLoveContainer = document.getElementById('messageLove');
+        for (let i = 0; i < 25; i++) {
+            setTimeout(() => {
+                const loveMessage = document.createElement('div');
+                loveMessage.className = 'love';
+                loveMessage.innerText = 'te amo';
+                messageLoveContainer.appendChild(loveMessage);
+            }, i * 1000); // Intervalo de 1 segundo
+        }
+        // Gerar corações periodicamente
+        setInterval(createHeart, 50);
+
+        // Gerar balões periodicamente
+        setInterval(createBalloon, 300);
+
+        // Criar alguns balões iniciais
+        for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                createBalloon();
+            }, i * 200);
+        }
+    </script>
+</body>
+</html>

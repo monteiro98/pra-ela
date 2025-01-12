@@ -1,0 +1,162 @@
+/* Estilos Globais */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    color: #333;
+    text-align: center;
+    line-height: 1.6;
+    min-height: 100vh; /* Garante que ocupe 100% da altura da tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+main{
+    background-color: #f3f4f6;
+}
+header {
+    background: linear-gradient(to right, #ff7eb3, #ff758f);
+  }
+/* Cabeçalho */
+h1 {
+    background: linear-gradient(to right, #ff7eb3, #ff758f);
+    color: white;
+    padding: 20px;
+    margin: 0;
+    font-size: 2.5rem;
+    border-radius: 0 0 15px 15px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+h3 {
+    color: #ff758f;
+    font-size: 1.2rem;
+}
+
+/* Container Principal */
+main {
+    flex-grow: 1; /* Faz o conteúdo ocupar o espaço restante da tela */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Inputs */
+input[type="text"] {
+    width: 60%;
+    max-width: 400px;
+    padding: 10px;
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #ff7eb3;
+    box-shadow: 0 0 8px rgba(255, 117, 143, 0.5);
+    outline: none;
+}
+
+/* Botões */
+button {
+    background: #ff758f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: #ff7eb3;
+    transform: scale(1.05);
+}
+
+button:active {
+    background: #ff4b6b;
+}
+
+/* Rodapé */
+footer {
+    background-color: #2e2e2e;
+    color: #f3f4f6;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer p:first-of-type {
+    color: #ff758f;
+    font-weight: bold;
+}
+
+footer p:last-of-type {
+    font-style: italic;
+    color: #ddd;
+}
+
+/* Ajustes para layout fixo */
+@media (max-width: 768px) {
+    input[type="text"], button {
+        width: 50%;
+    }
+}
+
+/* SVG - Animations e Estilos */
+svg #line {
+    fill: none;
+    stroke: #e00000;
+    stroke-width: 1.5;
+    stroke-linecap: butt;
+    stroke-linejoin: round;
+    stroke-miterlimit: 4;
+    stroke-opacity: 1;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: dash 3s linear infinite;
+  }
+  
+  svg #point {
+    fill: none;
+    stroke: #f00000;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: .1;
+    stroke-opacity: 1;
+    stroke-dasharray: .0001, .9999;
+    stroke-dashoffset: 1;
+    animation: dash 3s linear infinite;
+  }
+  
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 1;
+    }
+    50% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  header svg {
+    height: 90px; /* Altura desejada */
+    width: auto;  /* Largura ajustada automaticamente para manter a proporção */
+  }
+  
